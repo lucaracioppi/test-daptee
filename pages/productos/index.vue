@@ -1,9 +1,13 @@
+<!-- components/ParentComponent.vue -->
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import type { Product } from "../../types/types";
 import ProductCard from "./components/ProductCard.vue";
+import ProductModal from "./components/ProductModal.vue";
 
 const products = ref<Product[]>([]);
+const selectedProduct = ref<Product | null>(null);
+const isModalVisible = ref(false);
 
 const fetchProducts = async () => {
   try {
@@ -17,6 +21,16 @@ const fetchProducts = async () => {
   } catch (error) {
     console.error("Error fetching products:", error);
   }
+};
+
+const showModal = (product: Product) => {
+  selectedProduct.value = product;
+  isModalVisible.value = true;
+};
+
+const closeModal = () => {
+  isModalVisible.value = false;
+  selectedProduct.value = null;
 };
 
 onMounted(fetchProducts);
@@ -36,9 +50,15 @@ onMounted(fetchProducts);
             v-for="product in products"
             :key="product.id"
             :product="product"
+            @view-more="showModal"
           />
         </div>
       </div>
     </div>
+    <ProductModal
+      v-if="isModalVisible"
+      :product="selectedProduct"
+      @close="closeModal"
+    />
   </div>
 </template>

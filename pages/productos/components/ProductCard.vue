@@ -1,3 +1,4 @@
+<!-- components/ProductCard.vue -->
 <script lang="ts" setup>
 import { ref } from "vue";
 
@@ -23,7 +24,7 @@ const toggleDropdown = () => {
 };
 
 const viewMore = () => {
-  alert("Ver más clicked!");
+  emit("view-more", props.product);
   isDropdownOpen.value = false;
 };
 
@@ -31,6 +32,10 @@ const deleteCard = () => {
   alert("Borrar clicked!");
   isDropdownOpen.value = false;
 };
+
+const emit = defineEmits<{
+  (e: "view-more", product: typeof props.product): void;
+}>();
 </script>
 
 <template>
@@ -39,13 +44,13 @@ const deleteCard = () => {
   >
     <div class="h-60 aspect-w-1 aspect-h-1">
       <img
-        class="object-contain w-full h-full rounded-t-lg p-2"
+        class="object-contain w-full h-full p-2"
         :src="product.image"
         :alt="product.title"
       />
     </div>
 
-    <div class="h-auto px-5 pb-5 rounded-b-lg bg-slate-700">
+    <div class="h-auto px-5 pb-5 rounded-b-lg bg-white dark:bg-slate-700">
       <h5
         class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white truncate"
       >
