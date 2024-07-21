@@ -1,4 +1,3 @@
-<!-- components/ParentComponent.vue -->
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import type { Product } from "../../types/types";
@@ -33,6 +32,10 @@ const closeModal = () => {
   selectedProduct.value = null;
 };
 
+const handleDelete = (productId: number) => {
+  products.value = products.value.filter((product) => product.id !== productId);
+};
+
 onMounted(fetchProducts);
 </script>
 
@@ -51,6 +54,7 @@ onMounted(fetchProducts);
             :key="product.id"
             :product="product"
             @view-more="showModal"
+            @delete="handleDelete"
           />
         </div>
       </div>

@@ -1,6 +1,5 @@
-<!-- components/ProductCard.vue -->
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 
 const props = defineProps<{
   product: {
@@ -17,6 +16,11 @@ const props = defineProps<{
   };
 }>();
 
+const emit = defineEmits<{
+  (e: "view-more", product: typeof props.product): void;
+  (e: "delete", productId: number): void;
+}>();
+
 const isDropdownOpen = ref(false);
 
 const toggleDropdown = () => {
@@ -29,13 +33,9 @@ const viewMore = () => {
 };
 
 const deleteCard = () => {
-  alert("Borrar clicked!");
+  emit("delete", props.product.id);
   isDropdownOpen.value = false;
 };
-
-const emit = defineEmits<{
-  (e: "view-more", product: typeof props.product): void;
-}>();
 </script>
 
 <template>
