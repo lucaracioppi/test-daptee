@@ -1,75 +1,46 @@
-# Nuxt 3 Minimal Starter
+# test-daptee
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Este es un proyecto de ejemplo que utiliza **Nuxt3**, **TypeScript**, **Pinia**, y **Tailwind CSS**.
 
-## Setup
+## Descripción
 
-Make sure to install the dependencies:
+Este proyecto está configurado para proporcionar una base de trabajo con las siguientes tecnologías:
 
-```bash
-# npm
-npm install
+- **Nuxt3**: Framework de Vue.js para la generación de aplicaciones universales.
+- **TypeScript**: Superset de JavaScript que agrega tipado estático.
+- **Pinia**: Sistema de gestión de estado para Vue 3.
+- **Tailwind CSS**: Framework de CSS utilitario para un diseño rápido y responsivo.
 
-# pnpm
-pnpm install
+## Instalación
 
-# yarn
-yarn install
+Para comenzar a trabajar con el proyecto, sigue estos pasos:
 
-# bun
-bun install
-```
+1. **Clona el repositorio**:
+   ```sh
+   git clone https://github.com/lucaracioppi/test-daptee.git
+Navega al directorio del proyecto:
 
-## Development Server
+2. **Navega al directorio del proyecto**:
+   ```sh
+   cd test-daptee
 
-Start the development server on `http://localhost:3000`:
+3. **Instala las dependencias**:
+   ```sh
+   npm install
 
-```bash
-# npm
-npm run dev
+4. **Inicia el servidor de desarrollo**:
+   ```sh
+   npm run dev
+   
+5. **Configuración de Autenticación**:
+El proyecto incluye una configuración básica de autenticación en el archivo stores/auth.ts. Puedes cambiar el nombre de usuario y la contraseña predeterminados directamente en ese archivo.
 
-# pnpm
-pnpm run dev
+Cómo Cambiar el Usuario y la Contraseña
+Abre el archivo stores/auth.ts en tu editor de código.
 
-# yarn
-yarn dev
+Busca las siguientes variables:
+const user = ref("Daptee");
+const PASSWORD = ref("Daptee2024");
+Cambia 'user y 'PASSWORD' por las credenciales que desees.
 
-# bun
-bun run dev
-```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
