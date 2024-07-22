@@ -59,7 +59,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="w-full h-full bg-white dark:bg-gray-950">
+  <div class="w-full min-h-screen h-full bg-white dark:bg-gray-950">
     <div v-if="isLoading">
       <Loading />
     </div>
