@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import type { User } from "../../types/types";
+import { useSearchStore } from "~/stores/searchStore";
 import UserCard from "./components/UserCard.vue";
 import UserModal from "./components/UserModal.vue";
 
-const users = ref<User[]>([]);
+const searchStore = useSearchStore();
 const selectedUser = ref<User | null>(null);
 const isModalVisible = ref(false);
 
@@ -15,7 +16,7 @@ const fetchUsers = async () => {
       throw new Error("Network response was not ok");
     }
     const data: User[] = await response.json();
-    users.value = data;
+    searchStore.users = data;
   } catch (error) {
     console.error("Error fetching users:", error);
   }
@@ -27,7 +28,7 @@ const showModal = (user: User) => {
 };
 
 const handleDelete = (userId: number) => {
-  users.value = users.value.filter((user) => user.id !== userId);
+  searchStore.users = searchStore.users.filter((user) => user.id !== userId);
 };
 
 const closeModal = () => {
@@ -37,6 +38,7 @@ const closeModal = () => {
 
 onMounted(() => {
   fetchUsers();
+  searchStore.search = "";
 });
 </script>
 
@@ -48,7 +50,7 @@ onMounted(() => {
           class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"
         >
           <UserCard
-            v-for="user in users"
+            v-for="user in searchStore.filteredUsers"
             :key="user.id"
             :user="user"
             @view-more="showModal"

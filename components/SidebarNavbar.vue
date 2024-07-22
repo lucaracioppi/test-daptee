@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import { useSearchStore } from "~/stores/searchStore";
 
 const showSidebar = ref(false);
 const showUserDropdown = ref(false);
@@ -12,8 +13,10 @@ const toggleUserDropdown = () => {
   showUserDropdown.value = !showUserDropdown.value;
 };
 
+const searchStore = useSearchStore();
+
 const handleSearch = (event) => {
-  setSearchTerm(event.target.value);
+  searchStore.search = event.target.value;
 };
 </script>
 
@@ -53,6 +56,7 @@ const handleSearch = (event) => {
           <div class="relative">
             <input
               type="search"
+              v-model="searchStore.search"
               @input="handleSearch"
               placeholder="Buscar..."
               class="block w-full p-2 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"

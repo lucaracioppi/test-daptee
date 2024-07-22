@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
+import { useSearchStore } from "~/stores/searchStore";
 import type { Product } from "~/types/types";
 import ProductCard from "./components/ProductCard.vue";
 import ProductModal from "./components/ProductModal.vue";
 
-const products = ref<Product[]>([]);
+const searchStore = useSearchStore();
 const selectedProduct = ref<Product | null>(null);
 const isModalVisible = ref(false);
 
@@ -15,7 +16,7 @@ const fetchProducts = async () => {
       throw new Error("Network response was not ok");
     }
     const data: Product[] = await response.json();
-    products.value = data;
+    searchStore.products = data;
   } catch (error) {
     console.error("Error fetching products:", error);
   }
@@ -27,7 +28,9 @@ const showModal = (product: Product) => {
 };
 
 const handleDelete = (productId: number) => {
-  products.value = products.value.filter((product) => product.id !== productId);
+  searchStore.products = searchStore.products.filter(
+    (product) => product.id !== productId
+  );
 };
 
 const closeModal = () => {
@@ -37,6 +40,7 @@ const closeModal = () => {
 
 onMounted(() => {
   fetchProducts();
+  searchStore.search = "";
 });
 </script>
 
@@ -48,7 +52,7 @@ onMounted(() => {
           class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"
         >
           <ProductCard
-            v-for="product in products"
+            v-for="product in searchStore.filteredProducts"
             :key="product.id"
             :product="product"
             @view-more="showModal"
