@@ -40,9 +40,9 @@ const deleteCard = () => {
 
 <template>
   <div
-    class="w-full h-fit max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative"
+    class="w-64 h-fit bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative"
   >
-    <div class="h-60 aspect-w-1 aspect-h-1">
+    <div class="h-56 aspect-w-1 aspect-h-1">
       <img
         class="object-contain w-full h-full p-2"
         :src="product.image"
@@ -115,7 +115,7 @@ const deleteCard = () => {
         <!-- Dropdown menu -->
         <div
           v-if="isDropdownOpen"
-          class="z-10 absolute left-8 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800"
+          class="z-10 absolute left-0 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800"
         >
           <ul class="py-2">
             <li>

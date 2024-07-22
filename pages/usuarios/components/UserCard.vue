@@ -33,7 +33,7 @@ const viewMore = () => {
 
 <template>
   <div
-    class="w-full min-w-60 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-900 dark:border-gray-700"
+    class="w-64 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-900 dark:border-gray-700"
   >
     <div class="flex justify-end px-4 pt-4 relative">
       <button
@@ -55,7 +55,7 @@ const viewMore = () => {
       </button>
       <div
         v-if="isDropdownOpen"
-        class="z-10 absolute left-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800"
+        class="z-10 absolute left-6 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800"
       >
         <ul class="py-2">
           <li>

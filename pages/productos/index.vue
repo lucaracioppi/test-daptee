@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
-import type { Product } from "../../types/types";
+import type { Product } from "~/types/types";
 import ProductCard from "./components/ProductCard.vue";
 import ProductModal from "./components/ProductModal.vue";
 
@@ -16,7 +16,6 @@ const fetchProducts = async () => {
     }
     const data: Product[] = await response.json();
     products.value = data;
-    console.log("Products fetched:", products.value);
   } catch (error) {
     console.error("Error fetching products:", error);
   }
@@ -27,27 +26,26 @@ const showModal = (product: Product) => {
   isModalVisible.value = true;
 };
 
+const handleDelete = (productId: number) => {
+  products.value = products.value.filter((product) => product.id !== productId);
+};
+
 const closeModal = () => {
   isModalVisible.value = false;
   selectedProduct.value = null;
 };
 
-const handleDelete = (productId: number) => {
-  products.value = products.value.filter((product) => product.id !== productId);
-};
-
-onMounted(fetchProducts);
+onMounted(() => {
+  fetchProducts();
+});
 </script>
 
 <template>
   <div class="w-full h-full bg-white dark:bg-gray-950">
-    <div class="p-6 max-w-7xl mx-auto">
-      <h1 class="text-3xl font-bold mb-6 text-center text-gray-700">
-        Productos
-      </h1>
+    <div class="p-6 mt-16 mx-auto">
       <div class="flex justify-center">
         <div
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"
         >
           <ProductCard
             v-for="product in products"

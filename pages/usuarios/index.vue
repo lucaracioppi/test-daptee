@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
+import type { User } from "../../types/types";
 import UserCard from "./components/UserCard.vue";
 import UserModal from "./components/UserModal.vue";
-import type { User } from "../../types/types";
 
 const users = ref<User[]>([]);
 const selectedUser = ref<User | null>(null);
-const isModalOpen = ref(false);
+const isModalVisible = ref(false);
 
 const fetchUsers = async () => {
   try {
@@ -16,49 +16,47 @@ const fetchUsers = async () => {
     }
     const data: User[] = await response.json();
     users.value = data;
-    console.log("Users fetched:", users.value);
   } catch (error) {
     console.error("Error fetching users:", error);
   }
 };
 
-const openModal = (user: User) => {
+const showModal = (user: User) => {
   selectedUser.value = user;
-  isModalOpen.value = true;
-};
-
-const closeModal = () => {
-  selectedUser.value = null;
-  isModalOpen.value = false;
+  isModalVisible.value = true;
 };
 
 const handleDelete = (userId: number) => {
   users.value = users.value.filter((user) => user.id !== userId);
 };
 
-onMounted(fetchUsers);
+const closeModal = () => {
+  isModalVisible.value = false;
+  selectedUser.value = null;
+};
+
+onMounted(() => {
+  fetchUsers();
+});
 </script>
 
 <template>
   <div class="w-full h-full bg-white dark:bg-gray-950">
-    <div class="p-6 max-w-7xl mx-auto">
-      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">
-        Usuarios
-      </h1>
+    <div class="p-6 mt-16 mx-auto">
       <div class="flex justify-center">
         <div
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"
         >
           <UserCard
             v-for="user in users"
             :key="user.id"
             :user="user"
-            @view-more="openModal"
+            @view-more="showModal"
             @delete="handleDelete"
           />
         </div>
       </div>
     </div>
-    <UserModal v-if="isModalOpen" :user="selectedUser" @close="closeModal" />
+    <UserModal v-if="isModalVisible" :user="selectedUser" @close="closeModal" />
   </div>
 </template>
