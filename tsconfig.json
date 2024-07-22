@@ -14,7 +14,12 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@nuxt/typescript-build", "@types/node"]
+    "types": [
+      "@nuxt/types",
+      "@nuxt/typescript-build",
+      "@types/node",
+      "@pinia/nuxt"
+    ]
   },
   "exclude": ["node_modules"]
 }

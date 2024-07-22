@@ -1,84 +1,35 @@
+<script setup>
+import FormLogin from "./components/FormLogin.vue";
+definePageMeta({
+  layout: false,
+});
+</script>
 <template>
   <div class="w-full h-screen md:flex">
     <div
-      class="w-full md:w-1/2 flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
+      class="w-full md:w-1/2 flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white dark:bg-gray-950"
     >
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
-          class="h-10 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+          class="h-12 w-auto"
+          src="../../public/images/logo-Daptee.svg"
           alt="Your Company"
         />
         <h2
-          class="mt-8 text-left text-2xl font-bold leading-9 tracking-tight text-gray-900"
+          class="mt-8 text-left text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-200"
         >
           Sign in to your account
         </h2>
       </div>
 
-      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form class="space-y-6" action="#" method="POST">
-          <div>
-            <label
-              for="email"
-              class="block text-sm font-medium leading-6 text-gray-900"
-              >Email address</label
-            >
-            <div class="mt-2">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                required=""
-                class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div class="flex items-center justify-between">
-              <label
-                for="password"
-                class="block text-sm font-medium leading-6 text-gray-900"
-                >Password</label
-              >
-              <div class="text-sm">
-                <a
-                  href="#"
-                  class="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >Forgot password?</a
-                >
-              </div>
-            </div>
-            <div class="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autocomplete="current-password"
-                required=""
-                class="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign in
-            </button>
-          </div>
-        </form>
-
-        <p class="mt-10 text-center text-sm text-gray-500">
+      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
+        <FormLogin />
+        <p class="mt-10 text-center text-sm text-gray-500 dark:text-gray-200">
           Not a member?
           {{ " " }}
           <a
             href="#"
-            class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            class="font-semibold leading-6 text-violet-500 hover:text-violet-600"
             >Create an account</a
           >
         </p>
@@ -89,14 +40,17 @@
               <div class="w-full border-t border-gray-300"></div>
             </div>
             <div class="relative flex justify-center text-sm">
-              <span class="bg-white px-2 text-gray-500">Or continue with</span>
+              <span
+                class="bg-white dark:bg-gray-950 px-2 text-gray-500 dark:text-gray-200"
+                >Or continue with</span
+              >
             </div>
           </div>
           <div class="mt-6 grid grid-cols-2 gap-3">
             <div>
               <a
                 href="#"
-                class="inline-flex gap-3 w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
+                class="inline-flex gap-3 w-full justify-center rounded-md border border-gray-300 dark:border-gray-500 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50 hover:dark:bg-gray-800"
               >
                 <svg
                   class="h-5 w-5"
@@ -129,10 +83,10 @@
             <div>
               <a
                 href="#"
-                class="inline-flex gap-3 w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
+                class="inline-flex gap-3 w-full justify-center rounded-md border border-gray-300 dark:border-gray-500 bg-white dark:bg-gray-900 px-4 py-2 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50 hover:dark:bg-slate-800"
               >
                 <svg
-                  class="h-5 w-5"
+                  class="h-5 w-5 dark:bg-white rounded-full"
                   aria-hidden="true"
                   viewBox="0 0 16 16"
                   fill="currentColor"
