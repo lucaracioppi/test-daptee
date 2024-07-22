@@ -1,15 +1,20 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onBeforeMount } from "vue";
 import type { User } from "../../types/types";
 import { useSearchStore } from "~/stores/searchStore";
+import { useAuthStore } from "~/stores/auth";
+import { useRouter } from "vue-router";
 import UserCard from "./components/UserCard.vue";
 import UserModal from "./components/UserModal.vue";
 import Loading from "../../components/Loading.vue";
 
 const searchStore = useSearchStore();
+const authStore = useAuthStore();
 const selectedUser = ref<User | null>(null);
 const isModalVisible = ref(false);
 const isLoading = ref(true);
+
+const router = useRouter();
 
 const fetchUsers = async () => {
   try {
@@ -40,8 +45,13 @@ const closeModal = () => {
   selectedUser.value = null;
 };
 
-onMounted(() => {
-  fetchUsers();
+onBeforeMount(() => {
+  authStore.checkLogin();
+  if (!authStore.isLoggedIn) {
+    router.push("/login");
+  } else {
+    fetchUsers();
+  }
   searchStore.search = "";
 });
 </script>

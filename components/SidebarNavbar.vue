@@ -1,10 +1,19 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { useSearchStore } from "~/stores/searchStore";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "~/stores/auth";
 
 const showSidebar = ref(false);
 const showUserDropdown = ref(false);
+const isDisabled = ref(true);
 
+const searchStore = useSearchStore();
+const authStore = useAuthStore();
+const router = useRouter();
+
+const { user } = storeToRefs(authStore);
 const toggleSidebar = () => {
   showSidebar.value = !showSidebar.value;
 };
@@ -13,11 +22,24 @@ const toggleUserDropdown = () => {
   showUserDropdown.value = !showUserDropdown.value;
 };
 
-const searchStore = useSearchStore();
-
 const handleSearch = (event) => {
   searchStore.search = event.target.value;
 };
+
+const logout = () => {
+  authStore.logout(() => {
+    showUserDropdown.value = false;
+    router.push("/");
+  });
+};
+
+onMounted(() => {
+  if (authStore.isLoggedIn) {
+    isDisabled.value = false;
+  } else {
+    isDisabled.value = true;
+  }
+});
 </script>
 
 <template>
@@ -64,11 +86,14 @@ const handleSearch = (event) => {
           </div>
           <div class="flex items-center ms-3">
             <div class="flex flex-row gap-4 items-center">
-              <p class="text-sm text-gray-500 dark:text-gray-400">usuario</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                {{ user }}
+              </p>
               <button
                 type="button"
                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                 aria-expanded="false"
+                :disabled="isDisabled"
                 @click="toggleUserDropdown"
               >
                 <span class="sr-only">Open user menu</span>
@@ -93,12 +118,14 @@ const handleSearch = (event) => {
                   >
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <button
+                    type="button"
+                    @click="logout"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                     role="menuitem"
-                    >Cerrar sesión</a
                   >
+                    Cerrar sesión
+                  </button>
                 </li>
               </ul>
             </div>
@@ -129,7 +156,7 @@ const handleSearch = (event) => {
         </li>
         <li>
           <NuxtLink
-            to="/productos"
+            :to="isDisabled ? '' : '/productos'"
             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
           >
             <svg
@@ -151,7 +178,7 @@ const handleSearch = (event) => {
         </li>
         <li>
           <NuxtLink
-            to="/usuarios"
+            :to="isDisabled ? '' : '/usuarios'"
             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
           >
             <svg

@@ -1,15 +1,20 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useSearchStore } from "~/stores/searchStore";
+import { useAuthStore } from "~/stores/auth";
+import { useRouter } from "vue-router";
 import type { Product } from "~/types/types";
 import ProductCard from "./components/ProductCard.vue";
 import ProductModal from "./components/ProductModal.vue";
 import Loading from "../../components/Loading.vue";
 
 const searchStore = useSearchStore();
+const authStore = useAuthStore();
 const selectedProduct = ref<Product | null>(null);
 const isModalVisible = ref(false);
 const isLoading = ref(true);
+
+const router = useRouter();
 
 const fetchProducts = async () => {
   try {
@@ -42,8 +47,13 @@ const closeModal = () => {
   selectedProduct.value = null;
 };
 
-onMounted(() => {
-  fetchProducts();
+onBeforeMount(() => {
+  authStore.checkLogin();
+  if (!authStore.isLoggedIn) {
+    router.push("/login");
+  } else {
+    fetchProducts();
+  }
   searchStore.search = "";
 });
 </script>
