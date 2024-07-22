@@ -1,15 +1,15 @@
 # test-daptee
 
-Este es un proyecto de ejemplo que utiliza **Nuxt3**, **TypeScript**, **Pinia**, y **Tailwind CSS**.
+Este es un proyecto que utiliza **Nuxt3**, **TypeScript**, **Pinia**, y **Tailwind CSS**.
 
 ## Descripción
 
 Este proyecto está configurado para proporcionar una base de trabajo con las siguientes tecnologías:
 
-- **Nuxt3**: Framework de Vue.js para la generación de aplicaciones universales.
-- **TypeScript**: Superset de JavaScript que agrega tipado estático.
-- **Pinia**: Sistema de gestión de estado para Vue 3.
-- **Tailwind CSS**: Framework de CSS utilitario para un diseño rápido y responsivo.
+- **Nuxt3**
+- **TypeScript**
+- **Pinia**
+- **Tailwind CSS**
 
 ## Instalación
 
@@ -39,8 +39,8 @@ Cómo Cambiar el Usuario y la Contraseña
 Abre el archivo stores/auth.ts en tu editor de código.
 
 Busca las siguientes variables:
+   ```sh
 const user = ref("Daptee");
 const PASSWORD = ref("Daptee2024");
-Cambia 'user y 'PASSWORD' por las credenciales que desees.
 
 
