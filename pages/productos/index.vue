@@ -4,10 +4,12 @@ import { useSearchStore } from "~/stores/searchStore";
 import type { Product } from "~/types/types";
 import ProductCard from "./components/ProductCard.vue";
 import ProductModal from "./components/ProductModal.vue";
+import Loading from "../../components/Loading.vue";
 
 const searchStore = useSearchStore();
 const selectedProduct = ref<Product | null>(null);
 const isModalVisible = ref(false);
+const isLoading = ref(true);
 
 const fetchProducts = async () => {
   try {
@@ -19,6 +21,8 @@ const fetchProducts = async () => {
     searchStore.products = data;
   } catch (error) {
     console.error("Error fetching products:", error);
+  } finally {
+    isLoading.value = false;
   }
 };
 
@@ -46,7 +50,10 @@ onMounted(() => {
 
 <template>
   <div class="w-full h-full bg-white dark:bg-gray-950">
-    <div class="p-6 mt-16 mx-auto">
+    <div v-if="isLoading">
+      <Loading />
+    </div>
+    <div v-else class="p-6 mt-16 mx-auto">
       <div class="flex justify-center">
         <div
           class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"

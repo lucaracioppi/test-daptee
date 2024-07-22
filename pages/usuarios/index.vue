@@ -4,10 +4,12 @@ import type { User } from "../../types/types";
 import { useSearchStore } from "~/stores/searchStore";
 import UserCard from "./components/UserCard.vue";
 import UserModal from "./components/UserModal.vue";
+import Loading from "../../components/Loading.vue";
 
 const searchStore = useSearchStore();
 const selectedUser = ref<User | null>(null);
 const isModalVisible = ref(false);
+const isLoading = ref(true);
 
 const fetchUsers = async () => {
   try {
@@ -19,6 +21,8 @@ const fetchUsers = async () => {
     searchStore.users = data;
   } catch (error) {
     console.error("Error fetching users:", error);
+  } finally {
+    isLoading.value = false;
   }
 };
 
@@ -44,7 +48,10 @@ onMounted(() => {
 
 <template>
   <div class="w-full h-full bg-white dark:bg-gray-950">
-    <div class="p-6 mt-16 mx-auto">
+    <div v-if="isLoading">
+      <Loading />
+    </div>
+    <div v-else class="p-6 mt-16 mx-auto">
       <div class="flex justify-center">
         <div
           class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"
