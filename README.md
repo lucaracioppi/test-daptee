@@ -1,6 +1,6 @@
 # test-daptee
 
-Este es un proyecto que utiliza **Nuxt3**, **TypeScript**, **Pinia**, y **Tailwind CSS**.
+Este es un proyecto que utiliza **Nuxt3**, **TypeScript**, **Pinia**, y **Tailwind CSS**. Ademas, es responsive y esta hecho tanto para **Light Mode** como para **Dark Mode** (me focalice más en el Dark Mode)
 
 ## Descripción
 
