@@ -55,20 +55,20 @@ const viewMore = () => {
       </button>
       <div
         v-if="isDropdownOpen"
-        class="z-10 absolute left-6 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800"
+        class="z-10 absolute left-6 text-base list-none bg-gray-100 divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-800"
       >
         <ul class="py-2">
           <li>
             <a
               @click="viewMore"
-              class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200 dark:hover:text-white"
+              class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200 dark:hover:text-white"
               >Ver más</a
             >
           </li>
           <li>
             <a
               @click="deleteCard"
-              class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200 dark:hover:text-white"
+              class="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200 dark:hover:text-white"
               >Borrar</a
             >
           </li>
