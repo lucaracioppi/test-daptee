@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { ref, onBeforeMount } from "vue";
+import { ref, onBeforeMount, watch } from "vue";
 import type { User } from "../../types/types";
 import { useSearchStore } from "~/stores/searchStore";
 import { useAuthStore } from "~/stores/auth";
+import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 import UserCard from "./components/UserCard.vue";
 import UserModal from "./components/UserModal.vue";
@@ -10,9 +11,12 @@ import Loading from "../../components/Loading.vue";
 
 const searchStore = useSearchStore();
 const authStore = useAuthStore();
+const { filteredUsers } = storeToRefs(searchStore);
+
 const selectedUser = ref<User | null>(null);
 const isModalVisible = ref(false);
 const isLoading = ref(true);
+const isEmpty = ref(false);
 
 const router = useRouter();
 
@@ -45,6 +49,14 @@ const closeModal = () => {
   selectedUser.value = null;
 };
 
+watch(filteredUsers, () => {
+  if (filteredUsers.value.length === 0) {
+    isEmpty.value = true;
+  } else {
+    isEmpty.value = false;
+  }
+});
+
 onBeforeMount(() => {
   authStore.checkLogin();
   if (!authStore.isLoggedIn) {
@@ -58,6 +70,15 @@ onBeforeMount(() => {
 
 <template>
   <div class="w-full min-h-screen h-full bg-white dark:bg-gray-950">
+    <div v-show="isEmpty" class="mt-32 flex justify-center w-full">
+      <div
+        class="flex items-center justify-center w-96 h-36 bg-gray-200 dark:bg-gray-800 rounded-xl"
+      >
+        <p class="text-2xl font-bold text-black dark:text-white">
+          No hay más usuarios
+        </p>
+      </div>
+    </div>
     <div v-if="isLoading">
       <Loading />
     </div>
@@ -67,7 +88,7 @@ onBeforeMount(() => {
           class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"
         >
           <UserCard
-            v-for="user in searchStore.filteredUsers"
+            v-for="user in filteredUsers"
             :key="user.id"
             :user="user"
             @view-more="showModal"
